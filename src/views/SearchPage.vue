@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { ResultInterface } from "@/interfaces/result.interface"
 import { useResultStore } from "@/stores/result"
-import { computed, ref } from "vue"
+import { computed, onMounted, ref } from "vue"
 import { useRouter } from 'vue-router'
 import SearchResult from "@/components/SearchResult.vue"
 
@@ -13,6 +13,12 @@ const results = computed(() => resultStore.results)
 const loading = computed(() => resultStore.loading)
 const error = computed(() => resultStore.error)
 const retrievalTime = ref<number | null>(null)
+
+const methodList = ref<string[]>([])
+
+const getMethods = async () => {
+  methodList.value = await resultStore.fetchFeatureList()
+}
 
 const search = async () => {
   const startTime = performance.now()
@@ -31,6 +37,10 @@ const viewDetail = (result: ResultInterface) => {
     }
   })
 }
+
+onMounted(() => {
+  getMethods()
+})
 </script>
 
 <style>
@@ -45,9 +55,13 @@ const viewDetail = (result: ResultInterface) => {
         v-model="method"
         class="border rounded-l-lg p-2 focus:outline-none focus:ring focus:border-blue-300"
       >
-        <option value="BM25">BM25</option>
-        <option value="ColBERT">ColBERT</option>
-        <option value="BERT">BERT</option>
+        <option
+          v-for="(item, idx) in methodList"
+          :key="idx"
+          :value="item"
+        >
+          {{ item }}
+        </option>
       </select>
       <input
         type="text"

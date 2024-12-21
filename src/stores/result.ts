@@ -41,5 +41,21 @@ export const useResultStore = defineStore("result", {
                 this.loading = false; // Set loading to false after fetching
             }
         },
+        async fetchFeatureList() {
+            try {
+                const response = await fetch(`${import.meta.env.VITE_API_URI}/features`);
+                const data = await response.json();
+                console.log(data);
+
+                if (data.status === 200) {
+                    return data.data;
+                } else {
+                    console.error("No features found.");
+                }
+            } catch (err) {
+                console.error("Error fetching data:", err);
+            }
+            
+        }
     },
 });
