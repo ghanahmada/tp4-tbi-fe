@@ -13,7 +13,7 @@ export const useResultStore = defineStore("result", {
         setSelectedResult(result: ResultInterface) {
             this.selectedResult = result
         },
-        async fetchResults(query: string) {
+        async fetchResults(query: string, method: string) {
             if (!query.trim()) {
                 this.error = "Query cannot be empty.";
                 return;
@@ -24,7 +24,7 @@ export const useResultStore = defineStore("result", {
 
             try {
                 const response = await fetch(
-                    `https://9e4769e3-0d80-4e69-a3da-c9e239a9c60f.mock.pstmn.io/query?query=${query}`
+                    `${import.meta.env.VITE_API_URI}/query?query=${query}&method=${method}`
                 );
                 const data = await response.json();
                 console.log(data);

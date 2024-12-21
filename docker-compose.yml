@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  vue-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80" # Mapping port 8080 di host ke port 80 di container
+    restart: always
+    container_name: vue-app
