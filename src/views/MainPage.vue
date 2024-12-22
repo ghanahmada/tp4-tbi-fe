@@ -29,6 +29,7 @@ const search = async () => {
     query: {
       search: searchQuery.value,
       method: method.value,
+      retrievalTime: retrievalTime.value,
     },
   });
 };
