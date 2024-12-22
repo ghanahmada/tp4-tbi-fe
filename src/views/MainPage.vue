@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { useResultStore } from "@/stores/result"
 import { computed, onMounted, ref } from "vue"
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const resultStore = useResultStore()
 const searchQuery = ref("")
 const method = ref("BM25")
@@ -16,11 +18,20 @@ const getMethods = async () => {
 }
 
 const search = async () => {
-  const startTime = performance.now()
-  await resultStore.fetchResults(searchQuery.value, method.value)
-  const endTime = performance.now()
-  retrievalTime.value = ((endTime - startTime) / 1000)
-}
+  const startTime = performance.now();
+  await resultStore.fetchResults(searchQuery.value, method.value);
+  const endTime = performance.now();
+  retrievalTime.value = (endTime - startTime) / 1000;
+
+  // Redirect to PaginatedResultPage after the search
+  router.push({
+    name: "PaginatedResultPage", // Ensure this matches your route name
+    query: {
+      search: searchQuery.value,
+      method: method.value,
+    },
+  });
+};
 
 onMounted(() => {
   getMethods()
