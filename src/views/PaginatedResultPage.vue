@@ -17,7 +17,7 @@ const retrievalTime = ref<number | null>(null);
 const methodList = ref<string[]>([]);
 
 // Pagination logic
-const itemsPerPage = 5; // Number of results per page
+const itemsPerPage = 7; // Number of results per page
 const currentPage = ref(1);
 
 // Get the list of methods
@@ -56,15 +56,13 @@ const paginatedResults = computed(() => {
 // Determine pages to display
 const pagesToShow = computed(() => {
   const pages = [];
-  const range = 0; // Number of pages to show before and after the current page
+  const range = 1; // Number of pages to show before and after the current page
   const start = Math.max(1, currentPage.value - range);
   const end = Math.min(totalPages.value, currentPage.value + range);
 
-  if (currentPage.value > range + 1) pages.push(1); // Ellipsis before range
-  if (currentPage.value > range + 2) pages.push("..."); // Ellipsis before range
+  if (currentPage.value > range + 1) pages.push("..."); // Ellipsis before range
   for (let i = start; i <= end; i++) pages.push(i);
-  if (currentPage.value < totalPages.value - range - 1) pages.push("..."); // Ellipsis after range
-  if (currentPage.value < totalPages.value - range) pages.push(totalPages.value); // Ellipsis after range
+  if (currentPage.value < totalPages.value - range) pages.push("..."); // Ellipsis after range
 
   return pages;
 });
