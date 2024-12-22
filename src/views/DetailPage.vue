@@ -73,6 +73,7 @@ const goBack = () => {
     query: {
       search: route.query.search,
       method: route.query.method,
+      retrievalTime: route.query.retrievalTime,
     },
   })
 }
