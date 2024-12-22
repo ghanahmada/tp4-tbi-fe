@@ -34,6 +34,16 @@ const search = async () => {
   await resultStore.fetchResults(searchQuery.value, method.value);
   const endTime = performance.now();
   retrievalTime.value = ((endTime - startTime) / 1000);
+
+  // Redirect to PaginatedResultPage after the search
+  router.push({
+    name: "PaginatedResultPage",
+    query: {
+      search: searchQuery.value,
+      method: method.value,
+      retrievalTime: retrievalTime.value,
+    },
+  });
 };
 
 // View details of a result
@@ -83,6 +93,12 @@ const changePage = (page: string | number) => {
     currentPage.value = pageNumber;
   }
 };
+
+const truncatedSearchQuery = computed(() => {
+  return searchQuery.value.length > 60
+    ? searchQuery.value.substring(0, 60) + "..."
+    : searchQuery.value;
+});
 
 onMounted(() => {
   getMethods();
@@ -160,7 +176,7 @@ onMounted(() => {
     <!-- Search Results -->
     <div v-if="results.length > 0 && !loading" class="mt-[100px] mb-[100px] w-[63vw] mr-[21vw]">
       <h3 class="text-lg font-bold mb-4">
-        Search Results for "{{ searchQuery }}"
+        Search Results for "{{ truncatedSearchQuery }}"
         <span v-if="retrievalTime !== null">
           ({{ totalResults }} results in {{ retrievalTime.toFixed(2) }}s)
         </span>
