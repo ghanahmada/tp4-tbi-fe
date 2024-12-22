@@ -68,6 +68,12 @@ onMounted(() => {
 })
 
 const goBack = () => {
-  router.push('/')
+  router.push({
+    name: "PaginatedResultPage", // Ensure this matches your route name
+    query: {
+      search: route.query.search,
+      method: route.query.method,
+    },
+  })
 }
 </script>

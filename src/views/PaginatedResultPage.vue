@@ -43,6 +43,10 @@ const viewDetail = (result: ResultInterface) => {
     params: {
       id: result.doc_id,
     },
+    query: {
+      search: searchQuery.value,
+      method: method.value,
+    },
   });
 };
 
