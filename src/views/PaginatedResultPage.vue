@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from "vue";
 import { useResultStore } from "@/stores/result";
+import { useRoute } from "vue-router";
 import { useRouter } from "vue-router";
 import type { ResultInterface } from "@/interfaces/result.interface";
 import SearchResult from "@/components/SearchResult.vue";
 
+const route = useRoute();
 const router = useRouter();
 const resultStore = useResultStore();
-const searchQuery = ref("");
-const method = ref("BM25");
+const searchQuery = ref(route.query.search as string || "");
+const method = ref(route.query.method as string || "BM25");
 const results = computed(() => resultStore.results);
 const loading = computed(() => resultStore.loading);
 const error = computed(() => resultStore.error);
