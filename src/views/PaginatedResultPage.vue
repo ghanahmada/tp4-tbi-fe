@@ -14,7 +14,8 @@ const method = ref(route.query.method as string || "BM25");
 const results = computed(() => resultStore.results);
 const loading = computed(() => resultStore.loading);
 const error = computed(() => resultStore.error);
-const retrievalTime = ref<number | null>(null);
+// Retrieval time from the query parameter
+const retrievalTime = ref<number | null>(parseFloat(route.query.retrievalTime as string) || null);
 
 const methodList = ref<string[]>([]);
 
@@ -32,7 +33,7 @@ const search = async () => {
   const startTime = performance.now();
   await resultStore.fetchResults(searchQuery.value, method.value);
   const endTime = performance.now();
-  retrievalTime.value = (endTime - startTime) / 1000;
+  retrievalTime.value = ((endTime - startTime) / 1000);
 };
 
 // View details of a result
@@ -46,11 +47,13 @@ const viewDetail = (result: ResultInterface) => {
     query: {
       search: searchQuery.value,
       method: method.value,
+      retrievalTime: retrievalTime.value,
     },
   });
 };
 
-// Pagination logic
+// Pagination logi
+const totalResults = computed(() => results.value.length);
 const totalPages = computed(() => Math.ceil(results.value.length / itemsPerPage));
 
 const paginatedResults = computed(() => {
@@ -159,7 +162,7 @@ onMounted(() => {
       <h3 class="text-lg font-bold mb-4">
         Search Results for "{{ searchQuery }}"
         <span v-if="retrievalTime !== null">
-          ({{ paginatedResults.length }} results in {{ retrievalTime.toFixed(2) }}s)
+          ({{ totalResults }} results in {{ retrievalTime.toFixed(2) }}s)
         </span>
       </h3>
 
