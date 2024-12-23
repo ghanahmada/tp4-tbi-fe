@@ -32,7 +32,7 @@ const viewDetail = (result: ResultInterface) => {
   resultStore.setSelectedResult(result)
   router.push({
     name: "DetailPage",
-    params: { 
+    params: {
       id: result.doc_id
     }
   })
