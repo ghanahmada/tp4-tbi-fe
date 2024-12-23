@@ -55,7 +55,10 @@ export const useResultStore = defineStore("result", {
             } catch (err) {
                 console.error("Error fetching data:", err);
             }
-            
+
+        },
+        clearResults() {
+            this.results = [];
         }
     },
 });
