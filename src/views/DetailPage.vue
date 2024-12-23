@@ -28,7 +28,7 @@
     <!-- Result Content -->
     <div class="bg-white shadow-md rounded-lg p-6">
       <h2 class="text-2xl font-bold mb-4">{{ result?.title }}</h2>
-      <p class="text-gray-700">{{ result?.desc }}</p>
+      <p class="text-gray-700" v-html="formattedDesc"></p>
     </div>
     <button
       @click="goBack"
@@ -60,6 +60,10 @@ const route = useRoute()
 const router = useRouter()
 const resultStore = useResultStore()
 const result = computed(() => resultStore.selectedResult)
+
+const formattedDesc = computed(() => {
+  return result.value?.desc?.replace(/\n/g, "<br>") || ""
+})
 
 onMounted(() => {
   if (!resultStore.selectedResult) {
