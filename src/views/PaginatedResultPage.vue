@@ -30,6 +30,7 @@ const getMethods = async () => {
 
 // Search function
 const search = async () => {
+  resultStore.clearResults();
   const startTime = performance.now();
   await resultStore.fetchResults(searchQuery.value, method.value);
   const endTime = performance.now();
