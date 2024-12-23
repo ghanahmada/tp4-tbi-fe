@@ -20,7 +20,7 @@ const retrievalTime = ref<number | null>(parseFloat(route.query.retrievalTime as
 const methodList = ref<string[]>([]);
 
 // Pagination logic
-const itemsPerPage = 7; // Number of results per page
+const itemsPerPage = 30; // Number of results per page
 const currentPage = ref(1);
 
 // Get the list of methods
