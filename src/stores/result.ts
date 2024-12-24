@@ -36,7 +36,7 @@ export const useResultStore = defineStore("result", {
                 }
             } catch (err) {
                 console.error("Error fetching data:", err);
-                this.error = "Failed to fetch data. Please try again later.";
+                // this.error = "Failed to fetch data. Please try again later.";
             } finally {
                 this.loading = false; // Set loading to false after fetching
             }

@@ -175,6 +175,11 @@ onMounted(() => {
       <p>{{ error }}</p>
     </div>
 
+    <!-- Check if no results -->
+    <div v-if="!loading && totalResults === 0" class="text-center mt-[140px]">
+      <p class="text-gray-600 text-lg">No results found for "{{ searchQuery }}". Please try a different search term.</p>
+    </div>
+
     <!-- Search Results -->
     <div v-if="results.length > 0 && !loading" class="mt-[100px] mb-[100px] w-[63vw] mr-[21vw]">
       <h3 class="text-lg font-bold mb-4">
