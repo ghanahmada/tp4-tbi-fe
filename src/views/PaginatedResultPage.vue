@@ -10,6 +10,7 @@ const route = useRoute();
 const router = useRouter();
 const resultStore = useResultStore();
 const searchQuery = ref(route.query.search as string || "");
+const searchQueryInput = ref(route.query.search as string || ""); // Input sementara dari user
 const method = ref(route.query.method as string || "BM25");
 const results = computed(() => resultStore.results);
 const loading = computed(() => resultStore.loading);
@@ -30,6 +31,7 @@ const getMethods = async () => {
 
 // Search function
 const search = async () => {
+  searchQuery.value = searchQueryInput.value;
   resultStore.clearResults();
   const startTime = performance.now();
   await resultStore.fetchResults(searchQuery.value, method.value);
@@ -151,7 +153,7 @@ onMounted(() => {
         </select>
         <input
           type="text"
-          v-model="searchQuery"
+          v-model="searchQueryInput"
           @keyup.enter="search"
           placeholder="Search..."
           class="border p-2 w-full focus:outline-none focus:ring focus:border-blue-300"
