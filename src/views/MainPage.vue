@@ -59,11 +59,11 @@ onMounted(() => {
         <div class="w-full md:w-[263px] flex-shrink-0">
           <!-- Title -->
           <div class="text-[20px] md:text-[25px] font-bold text-black leading-none capitalize pb-1">
-            Information Retrieval
+            Finsearch
           </div>
           <!-- Subtitle -->
           <div class="text-[13px] md:text-[15px] font-light text-black leading-none capitalize">
-            fasilkom UI
+            Retrieve financial & stock news
           </div>
         </div>
       </div>
@@ -87,7 +87,7 @@ onMounted(() => {
         type="text"
         v-model="searchQuery"
         @keyup.enter="search"
-        placeholder="Search..."
+        placeholder="Discover news on US stocks"
         class="border p-2 w-full focus:outline-none focus:ring focus:border-blue-300"
       />
       <button
